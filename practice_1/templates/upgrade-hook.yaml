@@ -1,0 +1,18 @@
+# it will only execute after all resources are loaded into Kubernetes.
+# It run after performing upgradation via helm
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: upgrade-hook
+  annotations:
+     "helm.sh/hook": post-upgrade
+spec:
+  template:
+    spec:
+      containers:
+      - name: upgrade-hook
+        image: alpine
+        command: ["echo",  "Successful Upgradation"]
+      restartPolicy: Never
+  backoffLimit: 4

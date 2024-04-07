@@ -1,0 +1,18 @@
+# it will only execute after all resources are loaded into Kubernetes.
+# It run after performing installation via helm
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: install-hook
+  annotations:
+     "helm.sh/hook": post-install
+spec:
+  template:
+    spec:
+      containers:
+      - name: install-hook
+        image: alpine
+        command: ["echo",  "Successful Installation"]
+      restartPolicy: Never
+  backoffLimit: 4

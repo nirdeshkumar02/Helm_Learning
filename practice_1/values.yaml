@@ -1,0 +1,31 @@
+# Default values for webapp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: httpd
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 2.4.51
+
+nameOverride: webapp
+fullnameOverride: my-webapp
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: webapp-sa
+  labels:
+        app: web_application
+        tier: frontend
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30080
